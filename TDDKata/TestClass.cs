@@ -81,7 +81,7 @@ namespace TDDKata
             StringCalc calc = new StringCalc();
             int value = calc.Sum( "12323,24444" );
 
-            Assert.That( value, Is.EqualTo( 12323 + 24444 ), "Wrong actual value" );
+            Assert.That( value, Is.EqualTo( 0 ), "Wrong actual value" );
         }
         [Test]
         public void SumTwoIncorrectDelimiter ()
@@ -145,7 +145,7 @@ namespace TDDKata
         public void SumWithCustomDelimitersNotFromLeft ()
         {
             StringCalc calc = new StringCalc();
-            Assert.Throws<BadArgumentException>( () => calc.Sum( "//.1.2" ) );
+            Assert.Throws<BadArgumentException>( () => calc.Sum( " //.1.2" ) );
         }
         [Test]
         public void SumThousandOne ()
