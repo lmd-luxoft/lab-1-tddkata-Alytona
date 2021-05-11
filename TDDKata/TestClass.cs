@@ -25,13 +25,23 @@ namespace TDDKata
 
             Assert.That( value, Is.EqualTo( -1 ), "Wrong actual value" );
         }
+
         [Test]
         public void SumEmpty ()
         {
             StringCalc calc = new StringCalc();
             int value = calc.Sum( "" );
 
-            Assert.That( value, Is.EqualTo( -1 ), "Wrong actual value" );
+            Assert.That( value, Is.EqualTo( 0 ), "Wrong actual value" );
+        }
+
+        [Test]
+        public void SumSpaces ()
+        {
+            StringCalc calc = new StringCalc();
+            int value = calc.Sum( "  " );
+
+            Assert.That( value, Is.EqualTo( 0 ), "Wrong actual value" );
         }
 
         [Test]
