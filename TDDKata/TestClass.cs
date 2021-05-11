@@ -1,5 +1,6 @@
 ﻿// NUnit 3 tests
 // See documentation : https://github.com/nunit/docs/wiki/NUnit-Documentation
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
@@ -21,27 +22,21 @@ namespace TDDKata
         public void SumNull ()
         {
             StringCalc calc = new StringCalc();
-            int value = calc.Sum( null );
-
-            Assert.That( value, Is.EqualTo( -1 ), "Wrong actual value" );
+            Assert.Throws<BadArgumentException>( () => calc.Sum( null ) );
         }
 
         [Test]
         public void SumEmpty ()
         {
             StringCalc calc = new StringCalc();
-            int value = calc.Sum( "" );
-
-            Assert.That( value, Is.EqualTo( 0 ), "Wrong actual value" );
+            Assert.That( calc.Sum( "" ), Is.EqualTo( 0 ), "Wrong actual value" );
         }
 
         [Test]
         public void SumSpaces ()
         {
             StringCalc calc = new StringCalc();
-            int value = calc.Sum( "  " );
-
-            Assert.That( value, Is.EqualTo( 0 ), "Wrong actual value" );
+            Assert.That( calc.Sum( "  " ), Is.EqualTo( 0 ), "Wrong actual value" );
         }
 
         [Test]
@@ -56,17 +51,13 @@ namespace TDDKata
         public void SumOneNegative ()
         {
             StringCalc calc = new StringCalc();
-            int value = calc.Sum( "-5" );
-
-            Assert.That( value, Is.EqualTo( -1 ), "Wrong actual value" );
+            Assert.Throws<BadArgumentException>( () => calc.Sum( "-5" ) );
         }
         [Test]
         public void SumOneNoNumber ()
         {
             StringCalc calc = new StringCalc();
-            int value = calc.Sum( "ABC" );
-
-            Assert.That( value, Is.EqualTo( -1 ), "Wrong actual value" );
+            Assert.Throws<BadArgumentException>( () => calc.Sum( "ABC" ) );
         }
         [Test]
         public void SumTwoCorrect ()
@@ -104,17 +95,13 @@ namespace TDDKata
         public void SumTwoFirstNegative ()
         {
             StringCalc calc = new StringCalc();
-            int value = calc.Sum( "-1,2" );
-
-            Assert.That( value, Is.EqualTo( -1 ), "Wrong actual value" );
+            Assert.Throws<BadArgumentException>( () => calc.Sum( "-1,2" ) );
         }
         [Test]
         public void SumTwoSecondNegative ()
         {
             StringCalc calc = new StringCalc();
-            int value = calc.Sum( "1,-2" );
-
-            Assert.That( value, Is.EqualTo( -1 ), "Wrong actual value" );
+            Assert.Throws<BadArgumentException>( () => calc.Sum( "1,-2" ) );
         }
         [Test]
         public void SumThreeNumbers ()
@@ -152,17 +139,45 @@ namespace TDDKata
         public void SumWithNoCustomDelimiters ()
         {
             StringCalc calc = new StringCalc();
-            int value = calc.Sum( "//1,2" );
-
-            Assert.That( value, Is.EqualTo( -1 ), "Wrong actual value" );
+            Assert.Throws<BadArgumentException>( () => calc.Sum( "//1,2" ) );
         }
         [Test]
         public void SumWithCustomDelimitersNotFromLeft ()
         {
             StringCalc calc = new StringCalc();
-            int value = calc.Sum( " //.1.2" );
+            Assert.Throws<BadArgumentException>( () => calc.Sum( "//.1.2" ) );
+        }
+        [Test]
+        public void SumThousandOne ()
+        {
+            StringCalc calc = new StringCalc();
+            int value = calc.Sum( "1000" );
 
-            Assert.That( value, Is.EqualTo( -1 ), "Wrong actual value" );
+            Assert.That( value, Is.EqualTo( 1000 ), "Wrong actual value" );
+        }
+        [Test]
+        public void SumBigNumberOne ()
+        {
+            StringCalc calc = new StringCalc();
+            int value = calc.Sum( "1001" );
+
+            Assert.That( value, Is.EqualTo( 0 ), "Wrong actual value" );
+        }
+        [Test]
+        public void SumBigNumberTwoFirst ()
+        {
+            StringCalc calc = new StringCalc();
+            int value = calc.Sum( "1001,55" );
+
+            Assert.That( value, Is.EqualTo( 55 ), "Wrong actual value" );
+        }
+        [Test]
+        public void SumBigNumberTwoSecond ()
+        {
+            StringCalc calc = new StringCalc();
+            int value = calc.Sum( "77,1001" );
+
+            Assert.That( value, Is.EqualTo( 77 ), "Wrong actual value" );
         }
     }
 }
