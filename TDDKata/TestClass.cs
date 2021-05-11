@@ -108,5 +108,21 @@ namespace TDDKata
 
             Assert.That( value, Is.EqualTo( -1 ), "Wrong actual value" );
         }
+        [Test]
+        public void SumThreeNumbers ()
+        {
+            StringCalc calc = new StringCalc();
+            int value = calc.Sum( "1,2,3" );
+
+            Assert.That( value, Is.EqualTo( -1 ), "Wrong actual value" );
+        }
+        [Test]
+        public void SumFourNumbers ()
+        {
+            StringCalc calc = new StringCalc();
+            int value = calc.Sum( "1,2,3,4" );
+
+            Assert.That( value, Is.EqualTo( -1 ), "Wrong actual value" );
+        }
     }
 }
