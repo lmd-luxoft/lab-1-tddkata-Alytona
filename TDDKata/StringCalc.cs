@@ -1,6 +1,7 @@
 ﻿// NUnit 3 tests
 // See documentation : https://github.com/nunit/docs/wiki/NUnit-Documentation
 using System;
+using System.Collections.Generic;
 
 namespace TDDKata
 {
@@ -8,7 +9,7 @@ namespace TDDKata
     {
         char[] _delimiters = new char[] { ',', ' ', '\n' };
 
-        internal int Sum(string v)
+        internal int Sum (string v)
         {
             int sum = 0;
 
@@ -18,8 +19,22 @@ namespace TDDKata
             if (v.Trim().Length == 0)
                 return 0;
 
-            string[] numbers = v.Split( _delimiters );
+            List<char> delimiters = new List<char>( 10 );
 
+            int index = 0;
+            if (v.StartsWith( "//" ))
+            {
+                delimiters.AddRange( _delimiters );
+                index = 2;
+                while (index < v.Length && !Char.IsDigit( v[index] )) {
+                    delimiters.Add( v[index] );
+                    index++;
+                }
+                if (index == 2)
+                    return -1;
+            }
+
+            string[] numbers = delimiters.Count > 0 ? v.Substring( index ).Split( delimiters.ToArray() ) : v.Split( _delimiters );
             foreach (string number in numbers) 
             {
                 int numberValue = -1;
