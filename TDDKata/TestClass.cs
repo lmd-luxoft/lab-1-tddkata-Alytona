@@ -132,5 +132,37 @@ namespace TDDKata
 
             Assert.That( value, Is.EqualTo( 10 ), "Wrong actual value" );
         }
+        [Test]
+        public void SumWithCustomDelimiterPoint ()
+        {
+            StringCalc calc = new StringCalc();
+            int value = calc.Sum( "//.1\n2.3" );
+
+            Assert.That( value, Is.EqualTo( 6 ), "Wrong actual value" );
+        }
+        [Test]
+        public void SumWithCustomDelimiters ()
+        {
+            StringCalc calc = new StringCalc();
+            int value = calc.Sum( "//.#1,2.3#4" );
+
+            Assert.That( value, Is.EqualTo( 10 ), "Wrong actual value" );
+        }
+        [Test]
+        public void SumWithNoCustomDelimiters ()
+        {
+            StringCalc calc = new StringCalc();
+            int value = calc.Sum( "//1,2" );
+
+            Assert.That( value, Is.EqualTo( -1 ), "Wrong actual value" );
+        }
+        [Test]
+        public void SumWithCustomDelimitersNotFromLeft ()
+        {
+            StringCalc calc = new StringCalc();
+            int value = calc.Sum( " //.1.2" );
+
+            Assert.That( value, Is.EqualTo( -1 ), "Wrong actual value" );
+        }
     }
 }
