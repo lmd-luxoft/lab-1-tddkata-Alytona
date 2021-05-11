@@ -6,7 +6,7 @@ namespace TDDKata
 {
     internal class StringCalc
     {
-        char[] _delimiters = new char[] { ',', ' ' };
+        char[] _delimiters = new char[] { ',', ' ', '\n' };
 
         internal int Sum(string v)
         {
@@ -19,8 +19,6 @@ namespace TDDKata
                 return 0;
 
             string[] numbers = v.Split( _delimiters );
-            if (numbers.Length > 2)
-                return -1;
 
             foreach (string number in numbers) 
             {
