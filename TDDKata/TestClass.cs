@@ -77,6 +77,14 @@ namespace TDDKata
             Assert.That( value, Is.EqualTo( 3 ), "Wrong actual value" );
         }
         [Test]
+        public void SumTwoCorrectWithCrlf ()
+        {
+            StringCalc calc = new StringCalc();
+            int value = calc.Sum( "1\n2" );
+
+            Assert.That( value, Is.EqualTo( 3 ), "Wrong actual value" );
+        }
+        [Test]
         public void SumTwoCorrectManyDigits ()
         {
             StringCalc calc = new StringCalc();
@@ -112,17 +120,17 @@ namespace TDDKata
         public void SumThreeNumbers ()
         {
             StringCalc calc = new StringCalc();
-            int value = calc.Sum( "1,2,3" );
+            int value = calc.Sum( "1,2\n3" );
 
-            Assert.That( value, Is.EqualTo( -1 ), "Wrong actual value" );
+            Assert.That( value, Is.EqualTo( 6 ), "Wrong actual value" );
         }
         [Test]
         public void SumFourNumbers ()
         {
             StringCalc calc = new StringCalc();
-            int value = calc.Sum( "1,2,3,4" );
+            int value = calc.Sum( "1,2\n3,4" );
 
-            Assert.That( value, Is.EqualTo( -1 ), "Wrong actual value" );
+            Assert.That( value, Is.EqualTo( 10 ), "Wrong actual value" );
         }
     }
 }
