@@ -14,7 +14,7 @@ namespace TDDKata
             int sum = 0;
 
             if (v == null)
-                return -1;
+                throw new BadArgumentException();
 
             if (v.Trim().Length == 0)
                 return 0;
@@ -31,7 +31,7 @@ namespace TDDKata
                     index++;
                 }
                 if (index == 2)
-                    return -1;
+                    throw new BadArgumentException();
             }
 
             string[] numbers = delimiters.Count > 0 ? v.Substring( index ).Split( delimiters.ToArray() ) : v.Split( _delimiters );
@@ -39,12 +39,13 @@ namespace TDDKata
             {
                 int numberValue = -1;
                 if (!Int32.TryParse( number, out numberValue ))
-                    return -1;
+                    throw new BadArgumentException();
 
                 if (numberValue < 0)
-                    return -1;
+                    throw new BadArgumentException();
 
-                sum += numberValue;
+                if (numberValue <= 1000)
+                    sum += numberValue;
             }
             return sum;
         }
